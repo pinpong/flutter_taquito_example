@@ -29,6 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _connect() async {
     _dAppClient = DAppClient(DAppClientOptions(name: "Example"));
+
     final permissions = await _dAppClient?.requestPermissions();
 
     _tezosToolkit = TezosToolkit("https://mainnet-tezos.giganode.io");
@@ -46,7 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
       'threshold',
     ]));
 
-    _tezosToolkit!.setWalletProvider(_beaconWallet!);
+    if (_beaconWallet != null) {
+      _tezosToolkit?.setWalletProvider(_beaconWallet!);
+    }
   }
 
   @override
